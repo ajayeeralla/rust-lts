@@ -81,22 +81,26 @@ impl<U: std::cmp::Eq, W: std::cmp::Eq> PartialEq for Transition<U, W> {
     }
 }
 
+fn largest<T: std::cmp::Eq>(list: &[LTSState<T>]) -> LTSState<T> {
+    let mut largest = list[0];
+    for &item in list.iter(){
+        if item.state_id > largest.state_id {
+            largest = item;
+        }
 
-
-pub fn return_largest<U: std::cmp::Eq> (list: &[LTSState<U>]) -> LTSState<U> {
-     let mut largest = list[0];
-     for item in list.iter(){
-         if item.state_id > largest.state_id {
-             largest = item;
-         }
-     }
-     largest
+    }
+    largest
 }
 
-pub fn check_trans_exist <U: std::cmp::Eq, W> (st: LTSState<U>, b: W, list: &[Transition<U,W>]) -> bool {
-    let st_id = st.state_id;
-    let item = list[0];
 
-    item.transition_from.state_id == st_id
+
+
+pub fn check_trans_exist <U: std::cmp::Eq, W: std::cmp::Eq> (st: LTSState<U>, b: W, list: &[Transition<U,W>]) -> bool {
+    for &item in list.iter(){
+        if item.transition_from == st && b == item.transition_guard {
+            return true;
+        }
+    }
+   false
 
 }
