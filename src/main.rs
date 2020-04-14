@@ -1,11 +1,13 @@
 
-mod lts;
 
+ extern crate rust_lts;
+
+use rust_lts::lts::*;
 
 
 fn main() {
-    let st1 = lts::LTSState {state_id: 1, out: 3};
-    let st2 = lts::LTSState {state_id: 2, out: 10};
+    let st1 = LTSState {state_id: 1, out: 3};
+    let st2 = LTSState {state_id: 2, out: 10};
     let mut _v = vec![st2, st1];
     _v.sort();
     assert_eq!(_v, vec![st1, st2]);

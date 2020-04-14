@@ -1,3 +1,4 @@
+
 use core::cmp::Ordering;
 use std::cmp::PartialOrd;
 //extern crate rand;
@@ -7,7 +8,7 @@ use std::cmp::PartialOrd;
 
 #[derive(Eq, Debug, Default, Copy, Clone)]
 pub struct LTSState<U> where U: std::cmp::Eq {
-    pub state_id:u32,
+    pub state_id:i32,
     pub out:U
 }
 
@@ -36,10 +37,10 @@ impl<U: std::default::Default +  std::cmp::Eq> LTSState<U> {
             out: Default::default(),
         }
     }
-    pub fn return_fields (self) -> (u32, U) {
+    pub fn return_fields (self) -> (i32, U) {
     (self.state_id, self.out)
     }
-    pub fn sort_field(&self) -> u32 {
+    pub fn sort_field(&self) -> i32 {
         self.state_id
     }
 }
@@ -115,16 +116,16 @@ pub fn check_trans <U: std::cmp::Eq, W> (st: LTSState<U>, list: &[Transition<U,W
     true
 }
 
-pub fn get_from_ids<U: std::cmp::Eq, W> (list: &[Transition<U,W>]) -> Vec<u32> {
-    let mut v : Vec<u32> =vec![];
+pub fn get_from_ids<U: std::cmp::Eq, W> (list: &[Transition<U,W>]) -> Vec<i32> {
+    let mut v : Vec<i32> =vec![];
     for item in list.iter(){
         v.push(item.transition_from.state_id);
     }
     v
 }
 
-pub fn get_to_ids<U: std::cmp::Eq, W> (list: &[Transition<U,W>]) -> Vec<u32> {
-    let mut v : Vec<u32> =vec![];
+pub fn get_to_ids<U: std::cmp::Eq, W> (list: &[Transition<U,W>]) -> Vec<i32> {
+    let mut v : Vec<i32> =vec![];
     for item in list.iter(){
         v.push(item.transition_to.state_id);
     }
